@@ -14,29 +14,22 @@ history of why store-app.js lives there instead of here: it used to be
 served from a separate backend (`storeadmin.cungusportracing.com`), which
 is being retired in favour of Team App's own Firebase project.
 
-## Deploying this repo (GitHub Pages)
+## Deploying this repo (Netlify, connected to this GitHub repo)
 
-The included workflow (`.github/workflows/deploy.yml`) deploys this folder
-to GitHub Pages on every push to `main` — no build step, because there's
-nothing to build. To go live:
+No build step — this repo IS the published output, so Netlify just serves
+it as-is on every push. To go live:
 
-1. Push this repo to GitHub.
-2. In the repo's **Settings → Pages**, set **Source** to **GitHub
-   Actions** (the workflow will then run automatically; it already ran
-   once the moment you pushed, so you may just need to re-run it from the
-   **Actions** tab after making this change).
-3. Point your DNS at GitHub Pages for this subdomain. For a subdomain
-   (`sastore.cungusportracing.com`) add a **CNAME record**:
-   `sastore` → `<your-github-username-or-org>.github.io`
-   (GitHub's own docs: <https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site>)
-4. Back in **Settings → Pages**, under **Custom domain**, enter
-   `sastore.cungusportracing.com` and save (this repo already ships a
-   `CNAME` file with that value, which the workflow publishes automatically
-   — the Settings field just needs to match it once DNS is live, so GitHub
-   can provision HTTPS for it).
-5. Wait for DNS to propagate and for GitHub to issue the certificate (shows
-   as a green check in Settings → Pages once ready), then enable **Enforce
-   HTTPS**.
+1. Go to <https://app.netlify.com> and log in (or create a free account).
+2. **Add new site → Import an existing project → Deploy with GitHub** and
+   pick this repo (`sastore`).
+3. Netlify reads `netlify.toml` at the repo root and deploys immediately —
+   nothing else to configure. Every future push to `main` redeploys
+   automatically, and every pull request gets its own disposable
+   deploy-preview URL for free.
+4. Point your custom domain (`sastore.cungusportracing.com`) at this site
+   from **Site configuration → Domain management** in the same dashboard —
+   Netlify will tell you the DNS record to add at your registrar and
+   provision HTTPS for it automatically once DNS is live.
 
 ## Changing anything here
 

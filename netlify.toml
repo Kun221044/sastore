@@ -1,0 +1,24 @@
+# Netlify build settings for the Git-connected deploy.
+#
+# One-time setup (do this once, in the Netlify dashboard, not here):
+#   1. https://app.netlify.com -> Add new site -> Import an existing
+#      project -> Deploy with GitHub -> pick this repo (sastore).
+#   2. No build command needed — this repo IS the published output (one
+#      index.html, nothing to compile). Netlify reads the settings below
+#      and just serves the repo root as-is.
+#   3. Every push to main redeploys automatically, and every pull request
+#      gets its own disposable deploy-preview URL for free.
+#   4. Point your custom domain (sastore.cungusportracing.com) at this
+#      site from Site configuration -> Domain management — there's no
+#      CNAME file to keep in the repo for this; Netlify's own domain
+#      settings are the one place that now configures it (this used to
+#      be a GitHub Pages CNAME file, back when this repo deployed there —
+#      see git history if you're curious, but there's nothing to port
+#      over).
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
